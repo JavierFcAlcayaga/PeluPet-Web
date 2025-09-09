@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const password = passwordLogin.value.trim();
                 
                 // Lógica de autenticación simple
-                if (email === 'admin@peluqueria.cl' && password === 'admin123') {
+                if (email === 'admin@pelupet.cl' && password === 'admin123') {
                     // Credenciales de administrador
                     alert('¡Bienvenido, Administrador! Redirigiendo al panel de administración...');
                     // Redirigir al panel de administración
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Si todos los campos son válidos
             if (esValido) {
-                alert('¡Registro exitoso! Bienvenido a Peluquería Canina. Ahora puedes iniciar sesión.');
+                alert('¡Registro exitoso! Bienvenido a PeluPet. Ahora puedes iniciar sesión.');
                 // Opcional: redirigir a login
                 window.location.href = 'login.html';
             }

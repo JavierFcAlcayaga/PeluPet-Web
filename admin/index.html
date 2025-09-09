@@ -2,7 +2,24 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="        /* Ajustes para dispositivos móviles */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);         /* Ocultar sidebar fuera de la pantalla */
+                transition: transform .3s ease-in-out;/* Animación suave */
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);             /* Mostrar sidebar al activar */
+            }
+            
+            .main-content {
+                margin-left: 0;                      /* Usar todo el ancho en móvil */
+                padding: 1rem;                       /* Reducir padding en móvil */
+            }
+        }
+        
+        /* Utilidades y clases auxiliares */, initial-scale=1.0">
     <title>Panel de Administración - Peluquería Canina</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,33 +28,123 @@
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../assets/css/estilos.css">
     <style>
+        /* Variables CSS para medidas consistentes en todo el diseño */
+        :root {
+            --navbar-height: 60px;      /* Altura de la barra de navegación */
+            --sidebar-width: 250px;     /* Ancho de la barra lateral */
+        }
+        
+        /* Estilos básicos del body */
+        body {
+            min-height: 100vh;          /* Altura mínima de toda la página */
+            background-color: #f8f9fa;  /* Color de fondo claro */
+            padding-top: var(--navbar-height); /* Espacio para la navbar fija */
+        }
+        
+        /* Estilos de la barra de navegación superior */
+        .navbar {
+            height: var(--navbar-height);
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,.08);
+        }
+        
+        .navbar-brand img {
+            height: 35px;
+            width: auto;
+        }
+        
+        /* Estilos de la barra lateral (sidebar) */
         .sidebar {
-            position: fixed;
-            top: 0;
-            bottom: 0;
+            position: fixed;             /* Fijada en la pantalla */
+            top: var(--navbar-height);   /* Comienza debajo de la navbar */
             left: 0;
-            z-index: 100;
-            padding: 48px 0 0;
-            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: #fff;
+            box-shadow: inset -1px 0 0 rgba(0,0,0,.1);
+            padding-top: 1rem;
         }
-        .sidebar-sticky {
-            position: relative;
-            top: 0;
-            height: calc(100vh - 48px);
-            padding-top: .5rem;
-            overflow-x: hidden;
-            overflow-y: auto;
+        
+        /* Estilos de los enlaces en la barra lateral */
+        .sidebar .nav-link {
+            color: #333;
+            padding: .75rem 1.25rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.85;
         }
+        
+        .sidebar .nav-link:hover {
+            opacity: 1;
+            background: #f8f9fa;
+        }
+        
+        .sidebar .nav-link.active {
+            color: #0d6efd;
+            background: #e7f1ff;
+            opacity: 1;
+        }
+        
+        .sidebar .nav-link i {
+            width: 1.5rem;
+            text-align: center;
+            margin-right: .5rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Estilos del contenido principal */
         .main-content {
-            margin-left: 240px;
+            margin-left: var(--sidebar-width);  /* Espacio para el sidebar */
+            padding: 2rem;                      /* Espaciado interior */
         }
-        @media (max-width: 767.98px) {
+        
+        /* Estilos de las tarjetas */
+        .card {
+            border: none;                       /* Sin bordes */
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075); /* Sombra suave */
+        }
+        
+        /* Tarjetas de estadísticas */
+        .card-stat {
+            border-left: 4px solid transparent; /* Borde izquierdo para indicadores */
+        }
+        
+        /* Colores de los indicadores según el tipo de estadística */
+        .card-stat-primary { border-left-color: #0d6efd; }  /* Azul - Citas */
+        .card-stat-success { border-left-color: #198754; }  /* Verde - Ingresos */
+        .card-stat-info { border-left-color: #0dcaf0; }     /* Celeste - Clientes */
+        .card-stat-warning { border-left-color: #ffc107; }  /* Amarillo - Servicios */
+        
+        /* Iconos de estadísticas */
+        .stats-icon {
+            font-size: 2rem;
+            opacity: 0.8;                       /* Transparencia sutil */
+        }
+        
+        /* Diseño responsive */
+        @media (max-width: 768px) {
             .sidebar {
-                top: 5rem;
+                transform: translateX(-100%);
+                transition: transform .3s ease-in-out;
             }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
             .main-content {
                 margin-left: 0;
+                padding: 1rem;
             }
+        }
+        
+        /* Utilities */
+        .text-xs {
+            font-size: 0.75rem;
+        }
+        
+        .font-weight-bold {
+            font-weight: 600;
         }
     </style>
 </head>
@@ -45,15 +152,20 @@
     <!-- ================================================== -->
     <!-- BARRA DE NAVEGACIÓN SUPERIOR -->
     <!-- ================================================== -->
-    <nav class="navbar navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#">
-                <i class="bi bi-gear-fill me-2"></i>Panel de Administración - Peluquería Canina
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-3">
+            <button class="btn btn-link d-lg-none me-2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
+                <i class="bi bi-list fs-5"></i>
+            </button>
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="../assets/img/logo.png" alt="Logo Peluquería Canina" class="me-2">
+                <span class="fw-semibold text-primary d-none d-sm-inline">PeluPet Admin</span>
             </a>
-            <div class="d-flex">
+            <div class="d-flex align-items-center gap-3">
                 <div class="dropdown">
-                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
-                        <i class="bi bi-person-circle me-1"></i>Administrador
+                    <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle me-2"></i>
+                        <span class="d-none d-sm-inline">Administrador</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Perfil</a></li>
@@ -70,12 +182,12 @@
     <!-- ================================================== -->
     <!-- BARRA LATERAL DE NAVEGACIÓN -->
     <!-- ================================================== -->
-    <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="sidebar-sticky pt-3">
+    <nav class="sidebar collapse d-lg-block" id="sidebar">
+        <div class="px-3">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">
-                        <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                    <a class="nav-link active rounded" href="#">
+                        <i class="bi bi-speedometer2"></i>Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
@@ -161,15 +273,15 @@
             <!-- Tarjetas de estadísticas -->
             <div class="row mb-4">
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card card-stat card-stat-primary h-100">
                         <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Citas Hoy</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">12</div>
+                            <div class="row g-0 align-items-center">
+                                <div class="col">
+                                    <h6 class="text-xs text-uppercase mb-1 text-muted">Citas Hoy</h6>
+                                    <h3 class="mb-0 fw-bold">12</h3>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="bi bi-calendar-check text-primary" style="font-size: 2rem;"></i>
+                                    <i class="bi bi-calendar-check text-primary stats-icon"></i>
                                 </div>
                             </div>
                         </div>
@@ -296,10 +408,10 @@
                                 <button class="btn btn-success" type="button">
                                     <i class="bi bi-person-plus me-2"></i>Nuevo Cliente
                                 </button>
-                                <button class="btn btn-info" type="button">
+                                <button class="btn btn-info text-white" type="button">
                                     <i class="bi bi-scissors me-2"></i>Nuevo Servicio
                                 </button>
-                                <button class="btn btn-warning" type="button">
+                                <button class="btn btn-warning text-dark" type="button">
                                     <i class="bi bi-bar-chart me-2"></i>Ver Reportes
                                 </button>
                             </div>
