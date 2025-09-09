@@ -1,0 +1,99 @@
+/* Estilos para el botón del carrito en la navegación */
+.btn-carrito {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.btn-carrito:hover {
+    transform: translateY(-2px);
+}
+
+.contador-carrito {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--bs-danger);
+    color: white;
+    border-radius: 50%;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    min-width: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Estilos para el popup del resumen del carrito */
+.resumen-carrito-popup {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 280px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 1rem;
+    z-index: 1000;
+    margin-top: 0.5rem;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.resumen-carrito-popup::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 20px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    transform: rotate(45deg);
+    box-shadow: -2px -2px 5px rgba(0,0,0,0.04);
+}
+
+.resumen-items {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.resumen-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.resumen-item:last-child {
+    border-bottom: none;
+}
+
+.item-nombre {
+    font-size: 0.9rem;
+    color: var(--bs-gray-700);
+}
+
+.item-cantidad {
+    font-size: 0.8rem;
+    color: var(--bs-gray-600);
+    background: var(--bs-gray-100);
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+}
+
+.resumen-total {
+    padding: 0.75rem 0;
+    border-top: 2px solid #eee;
+    margin-bottom: 0.75rem;
+    text-align: right;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

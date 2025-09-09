@@ -39,7 +39,7 @@ EJEMPLO AGENTE 2 CURSOR/
 ## 🚀 Instalación
 1. Clona este repositorio
 ```bash
-git clone https://github.com/JavierFc.Alcayaga/pelupet.git
+git clone https://github.com/JavierFcAlcayaga/PeluPet-Web
 ```
 
 2. Navega al directorio del proyecto
@@ -128,9 +128,9 @@ cd pelupet
 - [ ] Sistema de pagos
 
 ## 📞 Contacto
-Creado por [Tu Nombre]
-- Email: [tu@email.com]
-- GitHub: [tu-usuario]
+Creado por [Francisco Alcayaga - Bryckson Gutierrez]
+- Email: [javierfc.alcayaga@gmail.com]
+- GitHub: [JavierFcAlcayaga]
 
 ## 📄 Licencia
 Este proyecto está bajo la Licencia MIT - ver el archivo LICENSE para más detalles
